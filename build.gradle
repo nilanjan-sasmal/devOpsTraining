@@ -2,6 +2,8 @@ plugins {
 	id 'org.springframework.boot' version '2.1.8.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
+	id 'maven'
+	id 'jacoco'
 }
 
 group = 'com.siemens'
@@ -10,6 +12,21 @@ sourceCompatibility = '1.8'
 
 repositories {
 	mavenCentral()
+}
+
+uploadArchives {
+	repositories
+	{
+		mavenDeployer {
+			repository (url:"http://localhost:8081/repository/siemenshosted/") {
+				authentication(userName: "admin", password: "admin123")
+			}
+				pom.version = "1.0"
+		pom.artifactId = "myweb"
+		pom.groupId = "com.siemens"
+		}
+	
+	}
 }
 
 dependencies {
