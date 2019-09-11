@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id 'maven'
 	id 'jacoco'
+	id 'org.sonarqube' version '2.7.1'
 }
 
 group = 'com.siemens'
@@ -27,6 +28,22 @@ uploadArchives {
 		}
 	
 	}
+}
+
+jacocoTestReport {
+	reports {
+		xml.enabled true
+		csv.enabled true
+		html.destination file("${buildDir}/jacoco/html")
+	}
+}
+
+sonarqube {
+properties {
+	property "sonar.projectName", "Nilanjan's code"
+	property "sonar.projectKey", "org.sonarqube.myweb"
+	property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
+}
 }
 
 dependencies {
